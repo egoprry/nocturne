@@ -1,2 +1,0 @@
-# nocturne
-adaptive darkmode extension
