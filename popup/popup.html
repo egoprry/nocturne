@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nocturne</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="app" aria-live="polite">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span></div>
+        <div>
+          <h1>Nocturne</h1>
+          <p>Adaptive dark mode</p>
+        </div>
+      </div>
+      <button class="icon-button" id="openOptions" type="button" aria-label="Open settings" title="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.4a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Zm9 3.6-2.1-1.1c-.1-.4-.3-.8-.5-1.2l.7-2.2-2.6-2.6-2.2.7c-.4-.2-.8-.4-1.2-.5L12 3H8.4L7.3 5.1c-.4.1-.8.3-1.2.5l-2.2-.7-2.6 2.6.7 2.2c-.2.4-.4.8-.5 1.2L-.6 12l2.1 1.1c.1.4.3.8.5 1.2l-.7 2.2 2.6 2.6 2.2-.7c.4.2.8.4 1.2.5L8.4 21H12l1.1-2.1c.4-.1.8-.3 1.2-.5l2.2.7 2.6-2.6-.7-2.2c.2-.4.4-.8.5-1.2L21 12Z"/></svg>
+      </button>
+    </header>
+
+    <section class="master-card">
+      <div>
+        <div class="status-line"><span class="status-dot" id="statusDot"></span><span id="statusText">Loading…</span></div>
+        <p id="statusDetail">Reading this page’s theme.</p>
+      </div>
+      <label class="switch switch-large" title="Enable Nocturne everywhere">
+        <input id="globalToggle" type="checkbox">
+        <span class="switch-track"><span class="switch-thumb"></span></span>
+      </label>
+    </section>
+
+    <section class="site-card" id="siteCard">
+      <div class="site-heading">
+        <div class="favicon-wrap"><img id="favicon" alt="" hidden><span id="faviconFallback">W</span></div>
+        <div class="site-copy">
+          <span class="eyebrow">Current site</span>
+          <strong id="hostname">—</strong>
+        </div>
+        <label class="switch" title="Enable on this site">
+          <input id="siteToggle" type="checkbox">
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+        </label>
+      </div>
+
+      <div class="restricted" id="restrictedMessage" hidden>
+        Browser pages and the extension store cannot be restyled. Regular web pages will work normally.
+      </div>
+
+      <div id="siteControls">
+        <div class="control-block">
+          <div class="control-label-row">
+            <span class="control-label">Rendering strategy</span>
+            <span class="hint" id="modeHint">Dynamic is recommended</span>
+          </div>
+          <div class="segmented" id="modePicker" role="radiogroup" aria-label="Rendering strategy">
+            <button type="button" data-mode="dynamic" role="radio">Dynamic</button>
+            <button type="button" data-mode="static" role="radio">Static</button>
+            <button type="button" data-mode="filter" role="radio">Filter</button>
+          </div>
+        </div>
+
+        <div class="tuning-panel">
+          <div class="slider-row">
+            <label for="darkness">Darkness</label>
+            <output id="darknessValue" for="darkness">72</output>
+            <input id="darkness" type="range" min="0" max="100" step="1">
+          </div>
+          <div class="slider-row">
+            <label for="brightness">Text brightness</label>
+            <output id="brightnessValue" for="brightness">100%</output>
+            <input id="brightness" type="range" min="70" max="130" step="1">
+          </div>
+          <div class="slider-row">
+            <label for="sepia">Warmth</label>
+            <output id="sepiaValue" for="sepia">0%</output>
+            <input id="sepia" type="range" min="0" max="100" step="1">
+          </div>
+        </div>
+
+        <label class="check-row">
+          <span>
+            <strong>Respect native dark themes</strong>
+            <small>Stay out of the way when a site is already dark.</small>
+          </span>
+          <input id="nativeToggle" type="checkbox">
+        </label>
+
+        <div class="action-row">
+          <button class="secondary-button" id="fixSite" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.7 6.3 3-3a5.1 5.1 0 0 0-6.5 6.5l-7.6 7.6a2.1 2.1 0 0 0 3 3l7.6-7.6a5.1 5.1 0 0 0 6.5-6.5l-3 3-3-3Z"/></svg>
+            Fix this site
+          </button>
+          <button class="ghost-button" id="resetSite" type="button">Reset site</button>
+        </div>
+      </div>
+    </section>
+
+    <button class="details-row" id="detailsToggle" type="button" aria-expanded="false">
+      <span>Page diagnostics</span>
+      <span class="details-summary" id="detailsSummary">Local processing only</span>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg>
+    </button>
+    <div class="details-panel" id="detailsPanel" hidden>
+      <dl>
+        <div><dt>Status</dt><dd id="detailStatus">—</dd></div>
+        <div><dt>Elements processed</dt><dd id="detailProcessed">—</dd></div>
+        <div><dt>Palette cache</dt><dd id="detailCache">—</dd></div>
+        <div><dt>Matched rules</dt><dd id="detailRules">—</dd></div>
+      </dl>
+    </div>
+
+    <footer>
+      <span class="privacy-dot"></span>
+      No analytics, no remote requests, no browsing-history upload.
+    </footer>
+  </main>
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="../shared/defaults.js"></script>
+  <script src="../shared/patterns.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+/*
+ * Loaded as a static content stylesheet at document_start.
+ * The opaque curtain stays over the page while settings, native-theme
+ * detection, and the first visible dynamic pass are completed.  A tiny
+ * preload script contains a fail-open timer so a script error can never
+ * leave a page permanently covered.
+ */
+html:not([data-nocturne-ready]) {
+  background-color: var(--nocturne-bootstrap-bg, #121419) !important;
+  color-scheme: dark !important;
+}
+
+html:not([data-nocturne-ready]) body,
+html:not([data-nocturne-revealed]):not([data-nocturne-sampling-site]) body {
+  background-color: var(--nocturne-bootstrap-bg, #121419) !important;
+}
+
+html:is(#__nocturne_bootstrap_anchor__, :not([data-nocturne-revealed])):not([data-nocturne-revealed]):not([data-nocturne-sampling-site])::before {
+  content: "" !important;
+  position: fixed !important;
+  inset: -2px !important;
+  z-index: 2147483647 !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: var(--nocturne-bootstrap-bg, #121419) !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+  transform: none !important;
+  mix-blend-mode: normal !important;
+}
+
+/* Top-layer UI can paint above normal stacking contexts, so keep it hidden
+   until the same reveal boundary as the page curtain. */
+html:not([data-nocturne-revealed]) :where(dialog[open], [popover]:popover-open) {
+  visibility: hidden !important;
+}
+
+@media print {
+  html:not([data-nocturne-ready]),
+  html:not([data-nocturne-ready]) body,
+  html:not([data-nocturne-revealed]):not([data-nocturne-sampling-site]) body {
+    background: initial !important;
+  }
+
+  html:is(#__nocturne_bootstrap_anchor__, :not([data-nocturne-revealed])):not([data-nocturne-revealed])::before {
+    display: none !important;
+  }
+}

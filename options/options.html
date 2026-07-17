@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nocturne Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="side-brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div><strong>Nocturne</strong><span>Adaptive dark mode</span></div>
+      </div>
+      <nav aria-label="Settings sections">
+        <button class="nav-item active" data-section="appearance" type="button"><span class="nav-icon">◐</span>Appearance</button>
+        <button class="nav-item" data-section="automation" type="button"><span class="nav-icon">◷</span>Automation</button>
+        <button class="nav-item" data-section="sites" type="button"><span class="nav-icon">◎</span>Site rules <span class="count" id="ruleCount">0</span></button>
+        <button class="nav-item" data-section="advanced" type="button"><span class="nav-icon">⌁</span>Advanced</button>
+        <button class="nav-item" data-section="data" type="button"><span class="nav-icon">⇄</span>Data & privacy</button>
+      </nav>
+      <div class="side-footer">
+        <span class="local-dot"></span>
+        Everything runs locally.<br>No analytics or network calls.
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="page-header">
+        <div>
+          <p class="kicker">Nocturne 0.1</p>
+          <h1 id="pageTitle">Appearance</h1>
+          <p id="pageDescription">Choose how pages are remapped and tune the global palette.</p>
+        </div>
+        <div class="save-state" id="saveState"><span></span>Saved</div>
+      </header>
+
+      <section class="settings-section active" data-panel="appearance">
+        <div class="two-column hero-grid">
+          <div class="stack">
+            <article class="card enable-card">
+              <div>
+                <h2>Dark mode engine</h2>
+                <p>The master switch always wins over schedules and site rules.</p>
+              </div>
+              <label class="switch switch-large">
+                <input type="checkbox" data-path="enabled" id="enabled">
+                <span class="switch-track"><span class="switch-thumb"></span></span>
+              </label>
+            </article>
+
+            <article class="card">
+              <div class="card-heading">
+                <div><h2>Default rendering strategy</h2><p>Dynamic is the best default. The others are compatibility fallbacks.</p></div>
+              </div>
+              <div class="mode-cards" id="defaultMode">
+                <button type="button" data-value="dynamic"><strong>Dynamic</strong><span>Perceptual color mapping, lazy processing, media protection.</span><em>Recommended</em></button>
+                <button type="button" data-value="static"><strong>Static</strong><span>CSS-only dark palette for difficult apps and simple pages.</span></button>
+                <button type="button" data-value="filter"><strong>Filter</strong><span>Fast whole-page inversion with media counter-filters.</span></button>
+              </div>
+            </article>
+          </div>
+
+          <article class="preview-card" id="themePreview">
+            <div class="preview-toolbar"><span></span><span></span><span></span><div></div></div>
+            <div class="preview-page">
+              <aside><div class="preview-logo"></div><i></i><i></i><i></i><i></i></aside>
+              <div class="preview-content">
+                <small>LIVE PREVIEW</small>
+                <h3>Readable after midnight.</h3>
+                <p>Semantic colors stay recognizable while light surfaces are compressed into a calm dark hierarchy.</p>
+                <div class="preview-row"><button>Primary action</button><a href="#">Example link</a></div>
+                <div class="preview-panels"><div><b>Raised card</b><span>Secondary surface</span></div><div class="preview-media"><span>Media unchanged</span></div></div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <article class="card">
+          <div class="card-heading split-heading">
+            <div><h2>Palette</h2><p>Global values become the starting point for every site.</p></div>
+            <div class="preset-row" id="presets">
+              <button type="button" data-preset="neutral">Neutral</button>
+              <button type="button" data-preset="oled">OLED</button>
+              <button type="button" data-preset="warm">Warm</button>
+              <button type="button" data-preset="cool">Cool</button>
+            </div>
+          </div>
+          <div class="palette-grid">
+            <label class="color-field"><span>Background</span><div><input type="color" data-path="appearance.background"><code data-color-label="appearance.background">#121419</code></div></label>
+            <label class="color-field"><span>Text</span><div><input type="color" data-path="appearance.text"><code data-color-label="appearance.text">#e7e9ee</code></div></label>
+            <label class="color-field"><span>Accent</span><div><input type="color" data-path="appearance.accent"><code data-color-label="appearance.accent">#8ab4f8</code></div></label>
+            <label class="color-field"><span>Selection</span><div><input type="color" data-path="appearance.selection"><code data-color-label="appearance.selection">#365b86</code></div></label>
+          </div>
+          <div class="slider-grid">
+            <label class="setting-slider"><span><b>Darkness</b><small>Black point for light page surfaces.</small></span><output data-output="appearance.darkness"></output><input type="range" min="0" max="100" step="1" data-path="appearance.darkness"></label>
+            <label class="setting-slider"><span><b>Text brightness</b><small>Raises or lowers mapped foregrounds.</small></span><output data-output="appearance.brightness"></output><input type="range" min="70" max="130" step="1" data-path="appearance.brightness" data-suffix="%"></label>
+            <label class="setting-slider"><span><b>Contrast</b><small>Separation between surface levels.</small></span><output data-output="appearance.contrast"></output><input type="range" min="70" max="130" step="1" data-path="appearance.contrast" data-suffix="%"></label>
+            <label class="setting-slider"><span><b>Saturation</b><small>Preserve or soften semantic colors.</small></span><output data-output="appearance.saturation"></output><input type="range" min="0" max="150" step="1" data-path="appearance.saturation" data-suffix="%"></label>
+            <label class="setting-slider"><span><b>Warmth</b><small>Sepia tint for late-night reading.</small></span><output data-output="appearance.sepia"></output><input type="range" min="0" max="100" step="1" data-path="appearance.sepia" data-suffix="%"></label>
+            <label class="setting-slider"><span><b>Minimum text contrast</b><small>WCAG-style contrast target.</small></span><output data-output="appearance.minContrast"></output><input type="range" min="3" max="9" step="0.1" data-path="appearance.minContrast" data-suffix=":1"></label>
+            <label class="setting-slider"><span><b>Dim media</b><small>Optional; zero preserves original brightness.</small></span><output data-output="appearance.dimMedia"></output><input type="range" min="0" max="60" step="1" data-path="appearance.dimMedia" data-suffix="%"></label>
+          </div>
+        </article>
+      </section>
+
+      <section class="settings-section" data-panel="automation">
+        <article class="card">
+          <div class="card-heading"><div><h2>Activation schedule</h2><p>Scheduling is calculated locally. System mode follows <code>prefers-color-scheme</code>.</p></div></div>
+          <div class="schedule-cards" id="scheduleMode">
+            <button type="button" data-value="always"><span>Always on</span><small>Use Nocturne whenever the master switch is enabled.</small></button>
+            <button type="button" data-value="system"><span>Follow system</span><small>Match the Windows or Brave color preference.</small></button>
+            <button type="button" data-value="custom"><span>Custom hours</span><small>Choose a fixed overnight window.</small></button>
+            <button type="button" data-value="sun"><span>Sunset to sunrise</span><small>Offline astronomical calculation from coordinates.</small></button>
+          </div>
+        </article>
+
+        <article class="card conditional" id="customScheduleCard">
+          <div class="card-heading"><div><h2>Custom hours</h2><p>Overnight ranges such as 7:00 PM to 7:00 AM are supported.</p></div></div>
+          <div class="field-grid two">
+            <label class="field"><span>Turn on</span><input type="time" data-path="schedule.start"></label>
+            <label class="field"><span>Turn off</span><input type="time" data-path="schedule.end"></label>
+          </div>
+        </article>
+
+        <article class="card conditional" id="sunScheduleCard">
+          <div class="card-heading split-heading"><div><h2>Sun schedule</h2><p>No weather service or location server is contacted.</p></div><span class="sun-summary" id="sunSummary">Enter coordinates</span></div>
+          <div class="field-grid four">
+            <label class="field"><span>Latitude</span><input type="number" min="-90" max="90" step="0.0001" placeholder="36.1699" data-path="schedule.latitude"></label>
+            <label class="field"><span>Longitude</span><input type="number" min="-180" max="180" step="0.0001" placeholder="-115.1398" data-path="schedule.longitude"></label>
+            <label class="field"><span>Sunset offset</span><input type="number" min="-180" max="180" step="5" data-path="schedule.sunsetOffset"><small>Minutes</small></label>
+            <label class="field"><span>Sunrise offset</span><input type="number" min="-180" max="180" step="5" data-path="schedule.sunriseOffset"><small>Minutes</small></label>
+          </div>
+          <p class="note">Positive offsets activate later; negative offsets activate earlier. Coordinates remain in browser storage.</p>
+        </article>
+
+        <article class="card shortcut-card">
+          <div><h2>Keyboard shortcuts</h2><p><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> toggles globally. <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> toggles the current site.</p></div>
+          <code>brave://extensions/shortcuts</code>
+        </article>
+      </section>
+
+      <section class="settings-section" data-panel="sites">
+        <article class="card add-rule-card">
+          <div class="card-heading"><div><h2>Add a site rule</h2><p>Use domains, wildcards, or paths: <code>example.com</code>, <code>*.example.com</code>, <code>example.com/editor/*</code>.</p></div></div>
+          <form id="addRuleForm" class="add-rule-form">
+            <label class="field grow"><span>URL pattern</span><input id="newRulePattern" type="text" autocomplete="off" placeholder="example.com/path/*"></label>
+            <label class="field"><span>State</span><select id="newRuleState"><option value="inherit">Inherit</option><option value="on">On</option><option value="off">Off</option></select></label>
+            <label class="field"><span>Mode</span><select id="newRuleMode"><option value="inherit">Inherit</option><option value="dynamic">Dynamic</option><option value="static">Static</option><option value="filter">Filter</option></select></label>
+            <button class="primary-button" type="submit">Add rule</button>
+          </form>
+          <p class="form-error" id="ruleFormError" hidden></p>
+        </article>
+
+        <div class="rules-toolbar">
+          <div><h2>Configured sites</h2><p>More specific path rules override broader domain rules.</p></div>
+          <input id="ruleSearch" type="search" placeholder="Search rules">
+        </div>
+        <div id="rulesList" class="rules-list"></div>
+        <div id="emptyRules" class="empty-state" hidden><div>◎</div><h3>No site-specific rules</h3><p>Sites inherit the global appearance and rendering strategy.</p></div>
+      </section>
+
+      <section class="settings-section" data-panel="advanced">
+        <div class="two-column">
+          <article class="card">
+            <div class="card-heading"><div><h2>Compatibility & protection</h2><p>These defaults favor visual accuracy and accessibility.</p></div></div>
+            <div class="toggle-list">
+              <label class="toggle-row"><span><b>Respect native dark themes</b><small>Skip processing when the page is already dark.</small></span><input type="checkbox" data-path="advanced.respectNativeDark"></label>
+              <label class="toggle-row"><span><b>Protect media elements</b><small>Do not recolor images, video, canvas, or embeds.</small></span><input type="checkbox" data-path="advanced.protectMedia"></label>
+              <label class="toggle-row"><span><b>Protect background photos</b><small>Keep CSS <code>url(...)</code> backgrounds unchanged.</small></span><input type="checkbox" data-path="advanced.protectBackgroundImages"></label>
+              <label class="toggle-row"><span><b>Process open shadow roots</b><small>Theme modern web components when accessible.</small></span><input type="checkbox" data-path="advanced.processShadowDOM"></label>
+              <label class="toggle-row"><span><b>Style scrollbars</b><small>Match page scrollbars to the generated palette.</small></span><input type="checkbox" data-path="advanced.styleScrollbars"></label>
+              <label class="toggle-row"><span><b>Suppress theme transitions</b><small>Prevent bright color animations during activation.</small></span><input type="checkbox" data-path="advanced.reduceTransitions"></label>
+              <label class="toggle-row"><span><b>Yield to forced-colors mode</b><small>Preserve Windows high-contrast accessibility colors.</small></span><input type="checkbox" data-path="advanced.disableInForcedColors"></label>
+              <label class="toggle-row"><span><b>Disable while printing</b><small>Restore the page’s original print styling.</small></span><input type="checkbox" data-path="advanced.disableOnPrint"></label>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-heading"><div><h2>Native dark detection</h2><p>Balances avoiding double-processing against catching mixed themes.</p></div></div>
+            <label class="field"><span>Detection sensitivity</span><select data-path="advanced.nativeDetection"><option value="conservative">Conservative</option><option value="balanced">Balanced</option><option value="aggressive">Aggressive</option></select></label>
+            <div class="slider-grid single">
+              <label class="setting-slider"><span><b>Elements per idle slice</b><small>Higher values finish sooner but create longer work bursts.</small></span><output data-output="advanced.maxElementsPerSlice"></output><input type="range" min="10" max="150" step="5" data-path="advanced.maxElementsPerSlice"></label>
+              <label class="setting-slider"><span><b>Viewport look-ahead</b><small>How far beyond the viewport lazy processing begins.</small></span><output data-output="advanced.rootMargin"></output><input type="range" min="0" max="2000" step="100" data-path="advanced.rootMargin" data-suffix=" px"></label>
+              <label class="setting-slider"><span><b>Cached sites</b><small>Least-recently-used palettes are removed automatically.</small></span><output data-output="advanced.cacheMaxSites"></output><input type="range" min="5" max="150" step="5" data-path="advanced.cacheMaxSites"></label>
+            </div>
+          </article>
+        </div>
+
+        <article class="card">
+          <div class="card-heading"><div><h2>Global custom CSS</h2><p>Applied after Nocturne’s generated theme on every supported page. CSS only; scripts are not accepted.</p></div></div>
+          <textarea class="code-editor" data-path="globalCustomCSS" spellcheck="false" placeholder="/* Example */&#10;:root { --my-site-token: #171a20; }"></textarea>
+        </article>
+      </section>
+
+      <section class="settings-section" data-panel="data">
+        <div class="two-column">
+          <article class="card metric-card">
+            <span class="metric-label">Palette cache</span><strong id="cacheSites">0 sites</strong><p id="cacheBytes">0 KB stored locally</p><button class="secondary-button" id="clearCache" type="button">Clear color cache</button>
+          </article>
+          <article class="card metric-card">
+            <span class="metric-label">Permissions</span><strong>Storage + all web pages</strong><p>All-pages access is required for automatic document-start theming and flash prevention.</p><span class="privacy-badge">No remote server</span>
+          </article>
+        </div>
+
+        <article class="card">
+          <div class="card-heading"><div><h2>Backup and restore</h2><p>Export site rules, schedules, colors, and advanced settings as JSON.</p></div></div>
+          <div class="button-row">
+            <button class="primary-button" id="exportSettings" type="button">Export settings</button>
+            <label class="secondary-button file-button">Import settings<input id="importSettings" type="file" accept="application/json,.json"></label>
+            <button class="danger-button" id="resetSettings" type="button">Reset everything</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-heading split-heading"><div><h2>Local compatibility log</h2><p>Created only when “Fix this site” is pressed. It never leaves your device.</p></div><button class="ghost-button" id="clearIssueLog" type="button">Clear log</button></div>
+          <div id="issueLog" class="issue-log"></div>
+          <p id="emptyIssueLog" class="note">No compatibility actions recorded.</p>
+        </article>
+
+        <article class="card privacy-copy">
+          <h2>Privacy model</h2>
+          <p>Nocturne performs color analysis inside the page, stores preferences with Chromium extension storage, and makes no fetch, analytics, telemetry, account, or reporting requests. “Broken site” actions are local records only. Imported custom CSS is treated as code you supplied and is never downloaded from a community server.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="../shared/defaults.js"></script>
+  <script src="../shared/color.js"></script>
+  <script src="../shared/patterns.js"></script>
+  <script src="../shared/schedule.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="../content/styles.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

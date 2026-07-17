@@ -1,0 +1,18 @@
+NOCTURNE 0.1.1 — QUICK INSTALL FOR BRAVE
+
+1. Extract the ZIP archive.
+2. Open brave://extensions/ in Brave.
+3. Enable Developer mode.
+4. Click Load unpacked.
+5. Select this folder—the folder containing manifest.json.
+6. Reload any web pages that were already open.
+
+Optional:
+- Pin Nocturne from Brave's Extensions menu.
+- Change shortcuts at brave://extensions/shortcuts.
+- For local HTML files, open the extension's Details page and enable
+  Allow access to file URLs.
+
+The default shortcuts are:
+Alt+Shift+D  Toggle globally
+Alt+Shift+S  Toggle the current site

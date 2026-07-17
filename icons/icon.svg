@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="20" y1="12" x2="108" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#273754"/>
+      <stop offset="1" stop-color="#111722"/>
+    </linearGradient>
+    <linearGradient id="moon" x1="37" y1="29" x2="86" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#c7d8ff"/>
+      <stop offset="1" stop-color="#729df6"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="5" y="5" width="118" height="118" rx="32" fill="url(#bg)" stroke="#3b4e6e" stroke-width="6"/>
+  <circle cx="61" cy="65" r="34" fill="url(#moon)" filter="url(#glow)"/>
+  <circle cx="77" cy="50" r="33" fill="#172136"/>
+  <circle cx="39" cy="38" r="3.5" fill="#dbe6ff" opacity=".9"/>
+  <circle cx="92" cy="91" r="2.5" fill="#9ab9ff" opacity=".8"/>
+  <circle cx="96" cy="33" r="2" fill="#9ab9ff" opacity=".7"/>
+</svg>

@@ -1,0 +1,81 @@
+{
+  "manifest_version": 3,
+  "name": "Nocturne \u2014 Adaptive Dark Mode",
+  "short_name": "Nocturne",
+  "version": "0.1.1",
+  "description": "A privacy-first, adaptive dark mode with media protection, per-site fallbacks, scheduling, and local color caching.",
+  "minimum_chrome_version": "111",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "action": {
+    "default_title": "Nocturne \u2014 Adaptive Dark Mode",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-global": {
+      "suggested_key": {
+        "default": "Alt+Shift+D"
+      },
+      "description": "Toggle Nocturne everywhere"
+    },
+    "toggle-site": {
+      "suggested_key": {
+        "default": "Alt+Shift+S"
+      },
+      "description": "Toggle Nocturne on the current site"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "exclude_matches": [
+        "https://chromewebstore.google.com/*",
+        "https://chrome.google.com/webstore/*"
+      ],
+      "css": [
+        "content/bootstrap.css"
+      ],
+      "js": [
+        "content/preload.js",
+        "shared/defaults.js",
+        "shared/color.js",
+        "shared/patterns.js",
+        "shared/schedule.js",
+        "shared/storage.js",
+        "content/styles.js",
+        "content/native-detection.js",
+        "content/dynamic-engine.js",
+        "content/content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_origin_as_fallback": true
+    }
+  ]
+}
